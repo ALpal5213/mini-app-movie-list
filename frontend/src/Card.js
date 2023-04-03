@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { Col, Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { MovieContext } from './App.js'
 import './Card.css'
 
 const Card = ({movies}) => {
-  const {trigger, setTrigger, query} = useContext(MovieContext);
-  const [watched, setWatched] = useState('all')
-  console.log(watched)
+  const {trigger, setTrigger, query, setMovie, watched, setWatched} = useContext(MovieContext);
+  const Navigate = useNavigate();
+
   let filteredMovies = movies.filter(movie => {
-    // console.log(movie.watch_status)
     if(watched === 'not') {
       if(query.length > 0) {
         return movie.title.toLowerCase().includes(query.toLowerCase()) && !movie.watch_status;
@@ -16,7 +16,6 @@ const Card = ({movies}) => {
         return !movie.watch_status;
       }
     } else if(watched === 'watched') {
-      console.log(movie.watch_status)
       if(query.length > 0) {
         
         return movie.title.toLowerCase().includes(query.toLowerCase()) && movie.watch_status;
@@ -71,7 +70,12 @@ const Card = ({movies}) => {
       {filteredMovies.map(movie => {
         return <Col key={movie.id} className="column" xs="12" sm="6" md="3">
           <div className="movie-card">
-            <h3>{movie.title}</h3>
+            <h3 onClick={() => {
+              Navigate(`/details/${movie.id}`);
+              setMovie(movie)
+            }}>
+                {movie.title}
+            </h3>
             <Button variant="warning" onClick={() => handlePatch(movie.id, movie.watch_status)}>
               {movie.watch_status ? <span>Watched</span> : <span>Not Watched</span>}
             </Button>
