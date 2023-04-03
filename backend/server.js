@@ -25,4 +25,20 @@ app.get('/movies', (req, res) => {
     .then(data => res.status(200).json(data));
 })
 
+app.delete('/movies/:id', (req, res) => {
+  knex('movies')
+    .where("id", req.params.id)
+    .del()
+    .then(data => res.status(200).send(`Deleted movie: ${req.params.id}`))
+})
+
+app.post('/movies', (req, res) => {
+  let movie = req.body;
+  console.log("movie: ", movie);
+
+  knex.insert(movie)
+    .into('movies')
+    .then(data => res.status(201).send(`Inserted ${movie.title}`))
+})
+
 app.listen(port, () => console.log(`Server is listening on port ${port}`))

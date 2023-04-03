@@ -1,0 +1,35 @@
+#add-button {
+  width: 150px;
+  /* background-color:; */
+}
+
+#add-button:hover {
+  background-color: #888888;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.form-popover {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 140px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-wrapper {
+  float: left;
+  margin-bottom: 10px;
+}
+
+form input, form label {
+  display: block;
+  height: 30px;
+  width: 250px;
+}

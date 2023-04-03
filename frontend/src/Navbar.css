@@ -1,0 +1,8 @@
+.home-button {
+  color: white;
+}
+
+.home-button:hover {
+  font-weight: bolder;
+  cursor: pointer;
+}
