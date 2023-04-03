@@ -11,7 +11,7 @@ const AddMovie = () => {
 
   const handlePost = (e) => {
     e.preventDefault();
-    console.log('enter')
+    
     fetch('http://localhost:8080/movies', {
       method: "POST",
       body: JSON.stringify({

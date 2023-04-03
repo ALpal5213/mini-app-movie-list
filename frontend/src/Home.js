@@ -6,20 +6,12 @@ import AddMovie from './AddMovie.js'
 import "./Home.css"
 
 const Home = () => {
-  const {movies, setMovies, query} = useContext(MovieContext);
-
-  let filteredMovies = movies.filter(movie => {
-    return query.length > 0 ? movie.title.toLowerCase().includes(query.toLowerCase()) : true;
-  })
+  const {movies, setMovies} = useContext(MovieContext);
 
   return (  
     <>
       <h1>List of Movies</h1>
-      
       <Container fluid="md">
-        <Row>
-          
-        </Row>
         <Row>
           <Col className="flex">
             <OverlayTrigger trigger="click" placement="bottom" overlay={<AddMovie/>}>
@@ -28,7 +20,7 @@ const Home = () => {
           </Col>
         </Row>
         <Row>
-          <Card movies={filteredMovies}/>
+          <Card movies={movies}/>
         </Row>
       </Container>
     </>

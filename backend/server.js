@@ -10,7 +10,7 @@ app.use(cors(
   {
     origin: 'http://localhost:3000',
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }
 ))
@@ -34,11 +34,23 @@ app.delete('/movies/:id', (req, res) => {
 
 app.post('/movies', (req, res) => {
   let movie = req.body;
-  console.log("movie: ", movie);
 
   knex.insert(movie)
     .into('movies')
     .then(data => res.status(201).send(`Inserted ${movie.title}`))
+})
+
+app.patch('/movies/:id', (req, res) => {
+  let status = req.body.watch_status;
+  let stat = status ? "1" : "0";
+  console.log(req.params.id, ": ", stat);
+  
+  knex('movies')
+    .where("id", req.params.id)
+    .update({
+      watch_status: stat,
+    }, ['watch_status'])
+    .then(data => res.status(200).send(`Updated to ${status}`))
 })
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`))
